@@ -1,36 +1,34 @@
-const cors = require("cors");
-const express = require("express");
-const mongoose = require("mongoose");
-const userRouter = require("./routes/userRouter")
-const taskRouter = require("./routes/taskRouter");
-const cardRouter = require("./routes/cardrouter");
-const personRouter = require("./routes/personRouter");
-const courseRouter = require("./routes/courseRouter");
-const StudentRouter = require("./routes/studentRouter");
-const teacherRouter = require("./routes/teacherRouter");
-const instituteRouter = require("./routes/instituteRouter");
+// let mongoose = require("mongoose")
+// let express = require("express")
+// let cors = require("cors")
+// // let app = express.Router()
 
-require("dotenv").config();
+// require("dotenv").config()
 
+// let app = express()
+// app.use(express.json())
+// app.use(cors())
+// app.use("",)
 
-const app = express();
-app.use(express.json())//Middleware
-app.use(cors())
+// app.listen(process.env.PORT,()=>{
+//   console.log("Listning")
+// })
 
 
-app.use("/api/user", userRouter);
-app.use("/api/card", cardRouter);
-app.use("/api/task", taskRouter );
-app.use("/api/person", personRouter)
-app.use("/api/course", courseRouter);
-app.use("/api/student", StudentRouter);
-app.use("/api/teacher", teacherRouter);
-app.use("/api/institute", instituteRouter);
+// let mongoose = require("mongoose")
+let express = require("express")
+let multer = require("multer")
+let path = require("path")
+let app = express()
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
-  app.listen(process.env.PORT, () => {
-    console.log("Database Connected Successfully");
-  });
-}).catch((err) => {
-  console.log(err);
-});
+const upload = multer({
+    dest:"./upload/images"
+})
+app.get("/upload")
+app.post("/upload", upload.single("profile"), (req,res)=>{
+console.log(req.file)
+})
+
+app.listen(5000 ,()=>{
+  console.log("Listning")
+})
